@@ -19,6 +19,29 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      body: Column(
+        
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: '수업',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment),
+            label: '설문',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '마이',
+          ),
+        ],
+      ),
     );
   }
 }
