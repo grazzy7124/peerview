@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
               width: 519, 
               height: 427,
               decoration: BoxDecoration(
-                color: Color(0xFF1CBDAF), 
+                color: Color(0xFFCBDAFF), 
                 borderRadius: BorderRadius.circular(9999), 
               ),
             ),
@@ -124,13 +124,12 @@ class LoginPage extends StatelessWidget {
                   child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: Color.fromRGBO(255, 255, 255, 0.541),
-                      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                      padding: const EdgeInsets.only(left: 18),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/');
-                    }, 
-                    child: 
-                    Row(
+                      Navigator.pushNamed(context, '/role');
+                    },
+                    child: Row(
                       children: [
                         Container(
                           decoration: BoxDecoration(
@@ -142,7 +141,7 @@ class LoginPage extends StatelessWidget {
                             child: Image.asset('assets/images/google_login_icon.png', height: 20.58,),
                           )
                         ),
-                        SizedBox(width: 11,),
+                        SizedBox(width: 11),
                         RichText(
                           text: TextSpan(
                             style: const TextStyle(color: Color(0xffffffff), fontSize: 15, fontWeight: FontWeight.w500),
@@ -161,7 +160,7 @@ class LoginPage extends StatelessWidget {
             )
           ],
         ),
-      ]
+        ]
       )
     );
   }
