@@ -39,6 +39,7 @@ class _NavigationState extends State<Navigation> {
       body: _pages[_selectedIndex],
 
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
