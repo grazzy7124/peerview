@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "995953246764",
+    "project_id": "peerview-613f7",
+    "storage_bucket": "peerview-613f7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995953246764:android:60b46a240aa832c93bc789",
+        "android_client_info": {
+          "package_name": "com.example.peerview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgBLB6c_-s0Kquz_qoNdx4acjsecJjiGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
