@@ -32,5 +32,12 @@ class FontStyles {
     fontSize: 16,
   ); // 본문2
 
+  //설문 생성 페이지 폰트
+  static const TextStyle pickClassTitle = TextStyle(
+    fontFamily: pretendard,
+    fontWeight: FontWeight.w600,
+    fontSize: 24,
+  ); // 본문2
+
 
 }
