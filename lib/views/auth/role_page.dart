@@ -10,6 +10,9 @@ class RolePage extends StatefulWidget {
 }
 
 class _RolePageState extends State<RolePage> {
+  bool isAdminSelected = false;
+  bool isStudentSelected = false;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +52,10 @@ class _RolePageState extends State<RolePage> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        setState(() {
+                          isAdminSelected = true;
+                          isStudentSelected = false;
+                        });
                       },
                       child: Container(
                         width: 165,
@@ -70,6 +77,9 @@ class _RolePageState extends State<RolePage> {
                               offset: Offset(0, -3.5),
                             ),
                           ],
+                          border: isAdminSelected
+                            ? Border.all(color: const Color(0xff154bc6), width: 2)
+                            : null,
                         ),
                         child: Column(
                           children: [
@@ -111,6 +121,10 @@ class _RolePageState extends State<RolePage> {
                     SizedBox(width: 15,),
                     GestureDetector(
                       onTap: () {
+                        setState(() {
+                          isStudentSelected = true;
+                          isAdminSelected = false;
+                        });
                       },
                       child: Container(
                         width: 165,
@@ -132,6 +146,9 @@ class _RolePageState extends State<RolePage> {
                               offset: Offset(0, -3.5),
                             ),
                           ],
+                          border: isStudentSelected
+                            ? Border.all(color: const Color(0xff154bc6), width: 2)
+                            : null,
                         ),
                         child: Column(
                           children: [
@@ -154,7 +171,6 @@ class _RolePageState extends State<RolePage> {
                                     offset: Offset(0, 4),
                                   ),
                                 ],
-                
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(15),
@@ -181,9 +197,11 @@ class _RolePageState extends State<RolePage> {
                     backgroundColor: Color.fromRGBO(255, 255, 255, 0.2),
                     padding: const EdgeInsets.fromLTRB(0, 14.4, 0, 14.4),
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
+                  onPressed: (isAdminSelected || isStudentSelected)
+                    ? () {
+                        Navigator.pushNamed(context, '/');
+                      }
+                    : null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
