@@ -3,6 +3,7 @@ import 'package:peerview/views/class/class_list_page.dart';
 import 'package:peerview/views/home/home_page.dart';
 import 'package:peerview/views/mypage/mypage.dart';
 import 'package:peerview/views/survey/survey_form_page.dart';
+import 'package:peerview/views/survey/survey_pick_class_page.dart';
 
 
 class Navigation extends StatefulWidget {
@@ -21,7 +22,7 @@ class _NavigationState extends State<Navigation> {
   final _pages = <Widget>[
     HomePage(),
     ClassListPage(),
-    SurveyFormPage(),
+    SurveyPickClassPage(),
     Mypage()
   ];
 
@@ -39,6 +40,7 @@ class _NavigationState extends State<Navigation> {
       body: _pages[_selectedIndex],
 
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
