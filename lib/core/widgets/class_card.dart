@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:peerview/views/class/class_page.dart';
 
 class ClassCard extends StatelessWidget {
   const ClassCard({
     super.key,
     required this.className,
-    required this.professorName,
+    required this.headCount,
   });
 
   final String className;
-  final String professorName;
+  final String headCount;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/class');
+        Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (context) => ClassPage(className: className)
+          )
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -62,7 +68,7 @@ class ClassCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '${professorName} 교수님',
+                      '${headCount}명',
                       style: TextStyle(
                         fontFamily: 'Pretendard',
                         fontWeight: FontWeight.w600,

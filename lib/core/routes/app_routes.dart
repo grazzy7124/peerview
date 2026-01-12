@@ -10,7 +10,7 @@ class AppRoutes {
     '/login': (context) => LoginPage(),
     '/role': (context) => RolePage(),
     '/' : (context) => Navigation(),
-    '/class': (context) => ClassPage(),
-    
+    // '/class': (context) => ClassPage(),
+
   };
 }

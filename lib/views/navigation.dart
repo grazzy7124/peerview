@@ -57,9 +57,9 @@ class _NavigationState extends State<Navigation> {
           case '/':
             page = const ClassListPage();
             break;
-          case '/class':
-            page = const ClassPage();
-            break;
+          // case '/class':
+          //   page = const ClassPage();
+          //   break;
           default:
             page = const ClassListPage();
         }

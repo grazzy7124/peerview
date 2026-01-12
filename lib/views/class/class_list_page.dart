@@ -37,9 +37,9 @@ class ClassListPage extends StatelessWidget {
               mainAxisSpacing: 24,
               crossAxisCount: 2,
               children: <Widget>[
-                ClassCard(className: '공학설계입문', professorName: '김경미',),
-                ClassCard(className: '공학설계입문', professorName: '김경미',),
-                ClassCard(className: '공학설계입문', professorName: '김경미',),
+                ClassCard(className: '공학설계입문', headCount: '66',),
+                ClassCard(className: '오픈소스 스튜디오', headCount: '45',),
+                ClassCard(className: '모바일 앱 개발', headCount: '57',),
               ],
             ),
           ),
