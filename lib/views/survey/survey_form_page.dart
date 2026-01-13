@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peerview/core/widgets/forms.dart';
+import 'package:peerview/views/survey/create_survey_complete_page.dart';
 
 class SurveyFormPage extends StatefulWidget {
   const SurveyFormPage({super.key});
@@ -42,6 +43,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 110), 
         child: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
           child: Column(
@@ -95,12 +97,19 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2024),
                         lastDate: DateTime(2030),
-                        
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: Color(0xff164BC6),
+                                onPrimary: Colors.white,
+                                onSurface: Color(0xff1A1A1A),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                       );
-                      if (selectedDate != null) {
-                        _surveyDateController.text =
-                            '${selectedDate.year}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.day.toString().padLeft(2, '0')}';
-                      }
                     },
                   ),
                   hintText: "2026.01.01",
@@ -160,40 +169,47 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 119,),
-              Container(
-                width: 335,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: _isFormComplete
-                      ? const Color(0xff164BC6)
-                      : const Color(0xffE5E7EB),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: TextButton(
-                  onPressed: _isFormComplete
-                    ? () {
-                        //
-                      }
-                    : null,
-                  child: Text(
-                    '등록하기',
-                    style: TextStyle(
-                      color: _isFormComplete
-                          ? const Color(0xffffffff)
-                          : const Color(0xff9ca3af),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  // jjjjj
-                ),
-              ),
-              SizedBox(height: 33),
             ]
           )
         )
-      )
+      ),
+       bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _isFormComplete
+                    ? const Color(0xff164BC6)
+                    : const Color(0xffE5E7EB),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: _isFormComplete ? () {
+                Navigator.of(context, rootNavigator: true).push(
+                  MaterialPageRoute(
+                    builder: (_) => const CreateSurveyCompletePage(),
+                  ),
+                );
+              } : null,
+              child: Text(
+                '등록하기',
+                style: TextStyle(
+                  color: _isFormComplete
+                      ? Colors.white
+                      : const Color(0xff9CA3AF),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

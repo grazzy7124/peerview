@@ -61,7 +61,7 @@ class _FormsState extends State<Forms> {
       children: [
         ...List.generate(_singleChoiceControllers.length, (index) {
           return Padding(
-            padding: EdgeInsetsGeometry.symmetric(vertical: 5),
+            padding: EdgeInsetsGeometry.symmetric(vertical: 3),
             child: Row(
               children: [
                 Image.asset('assets/images/form_radio_icon.png', height: 20,),
@@ -69,7 +69,21 @@ class _FormsState extends State<Forms> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "응답 추가",
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          size: 18,
+                          color: Color(0xff9CA3AF),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _singleChoiceControllers[index].dispose();
+                            _singleChoiceControllers.removeAt(index);
+                          });
+                        },
+                      ),
+                      hintText: "옵션",
+                      hintStyle: TextStyle(fontSize: 14),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0xffE5E7EB), 
@@ -83,26 +97,180 @@ class _FormsState extends State<Forms> {
                         ),
                       ),
                     ),
-                  )
-                )
+                  ),
+                ),
               ],
             ),
           );
-        })
+        }),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 2),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _singleChoiceControllers.add(TextEditingController());
+              });
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/form_radio_icon.png',
+                  height: 20,
+                ),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    '옵션 추가',
+                    style: TextStyle(
+                      color: Color(0xff6A7282),
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
 
   Widget _multipleChoiceAnswer() {
-    return Text("체크박스 다중 선택 UI");
+    return Column(
+      children: [
+        ...List.generate(_singleChoiceControllers.length, (index) {
+          return Padding(
+            padding: EdgeInsetsGeometry.symmetric(vertical: 3),
+            child: Row(
+              children: [
+                Image.asset('assets/images/form_checkbox_icon.png', height: 18,),
+                SizedBox(width: 12,),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          size: 18,
+                          color: Color(0xff9CA3AF),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _singleChoiceControllers[index].dispose();
+                            _singleChoiceControllers.removeAt(index);
+                          });
+                        },
+                      ),
+                      hintText: "옵션",
+                      hintStyle: TextStyle(fontSize: 14),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xffE5E7EB), 
+                          width: 0.7,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xff164BC6),
+                          width: 0.7,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 15, 0, 2),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _singleChoiceControllers.add(TextEditingController());
+              });
+            },
+            child: Row(
+              children: [
+                Image.asset('assets/images/form_checkbox_icon.png', height: 18,),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    '옵션 추가',
+                    style: TextStyle(
+                      color: Color(0xff6A7282),
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _ratingAnswer() {
-    return Text("별점 UI");
+    return Column(
+      children: [
+        SizedBox(height: 3,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/form_star.png', height: 32,),
+            SizedBox(width: 8,),
+            Image.asset('assets/images/form_star.png', height: 32,),
+            SizedBox(width: 8,),
+            Image.asset('assets/images/form_star.png', height: 32,),
+            SizedBox(width: 8,),
+            Image.asset('assets/images/form_star.png', height: 32,),
+            SizedBox(width: 8,),
+            Image.asset('assets/images/form_star.png', height: 32,),
+          ],
+        ),
+        SizedBox(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: (){
+
+              },
+              child: Image.asset('assets/images/form_star_minus_btn.png', height: 24,),
+            ),
+            SizedBox(width: 7),
+            InkWell(
+              onTap: (){
+
+              },
+              child: Image.asset('assets/images/form_star_plus_btn.png', height: 24,)
+            ),
+          ],
+        )
+      ],
+    );
   }
 
   Widget _textAnswer() {
-    return Text("주관식 텍스트 UI");
+    return TextField(
+      decoration: InputDecoration(
+        hintText: "텍스트 입력",
+        hintStyle: TextStyle(fontSize: 14),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xffE5E7EB), 
+            width: 0.7,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff164BC6),
+            width: 0.7,
+          ),
+        ),
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
@@ -152,11 +320,6 @@ class _FormsState extends State<Forms> {
                       ),
                     ),
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      
-                    });
-                  },
                 ),
                 SizedBox(height: 16),
                 Container(
@@ -290,7 +453,6 @@ class _FormsState extends State<Forms> {
                     ),
                   ],
                 ),
-                // SizedBox(height: 14,),
               ],
             ),
           ),
