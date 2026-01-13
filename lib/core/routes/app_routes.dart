@@ -13,6 +13,5 @@ class AppRoutes {
     '/' : (context) => Navigation(),
     // '/class': (context) => ClassPage(),
     '/surveyForm' : (context) => SurveyFormPage(),
-
   };
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peerview/core/theme/font_styles.dart';
 import 'package:peerview/core/widgets/class_chip.dart';
+import 'package:peerview/views/survey/survey_form_page.dart';
 
 class SurveyPickClassPage extends StatefulWidget {
   const SurveyPickClassPage({super.key});
@@ -63,15 +64,19 @@ class _SurveyPickClassPageState extends State<SurveyPickClassPage> {
                   decoration: BoxDecoration(
                     color: selectedIndex != null
                       ? const Color(0xff164BC6)
-                      : const Color(0xffD9D9D9),
+                      : const Color(0xffE5E7EB),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
                     onPressed: selectedIndex == null
                       ? null
                       : () {
-                          Navigator.pushNamed(context, '/surveyForm');
-                        },
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (_) => const SurveyFormPage(),
+                          ),
+                        );
+                      },
                     child: Text(
                       '생성하기',
                       style: TextStyle(
