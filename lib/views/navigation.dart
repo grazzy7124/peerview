@@ -52,7 +52,7 @@ class _NavigationState extends State<Navigation> {
         page = const HomePage();
         break;
 
-      case 1: // 수업 탭 (여기서 /class 같은 상세 라우트 처리)
+      case 1: // 수업 탭 
         switch (settings.name) {
           case '/':
             page = const ClassListPage();

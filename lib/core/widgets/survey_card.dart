@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 
-class SurveyCard extends StatelessWidget {
+class SurveyCard extends StatefulWidget {
   const SurveyCard({
     super.key,
     this.surveyName = 'surveyName',
     this.headCount = 0,
-    this.dueDate = '2026.01.12'
+    this.dueDate = '2026.01.12',
+    required this.onDelete,
   });
 
   final String surveyName;
   final int headCount;
   final String dueDate;
+  final VoidCallback onDelete;
 
+  @override
+  State<SurveyCard> createState() => _SurveyCardState();
+}
+
+class _SurveyCardState extends State<SurveyCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
-        width: 340, height: 180,
+        width: 340, height: 168,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
@@ -33,7 +40,7 @@ class SurveyCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '2학기 중간 동료평가',
+                    widget.surveyName,
                     style: TextStyle(
                       fontFamily: 'Pretendard',
                       fontWeight: FontWeight.w600,
@@ -41,10 +48,43 @@ class SurveyCard extends StatelessWidget {
                     ),
                   ),
                   Expanded(child: Container()),
-                  Image.asset(
-                    'assets/images/hamburger_icon.png',
-                    height: 15,
+                  PopupMenuButton<String>(
+                    onSelected: (value) {
+                      if (value == 'delete') {
+                        widget.onDelete();
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      PopupMenuItem<String>(
+                        height: 30, 
+                        value: 'delete',
+                        child: Center(
+                          child: Text(
+                            '삭제하기',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    offset: Offset(0, 20),
+                    color: Colors.white,
+                    child: Container(
+                      child: SizedBox(
+                        width: 15,
+                        height: 15,
+                        child: Image.asset(
+                          'assets/images/hamburger_icon.png',
+                        ),
+                      ),
+                    ),
                   ),
+
                   SizedBox(width: 8,),
                 ],
               ),
@@ -52,12 +92,12 @@ class SurveyCard extends StatelessWidget {
               IntrinsicHeight(
                 child: Row(
                   children: [
-                    Text('참여자 ${headCount}명'),
+                    Text('참여자 ${widget.headCount}명'),
                     VerticalDivider(
                       indent: 4, endIndent: 4,
                       color: Color(0xffD1D5DC),
                     ),
-                    Text('마감 ${dueDate}')
+                    Text('마감 ${widget.dueDate}')
                   ],
                 ),
               ),
