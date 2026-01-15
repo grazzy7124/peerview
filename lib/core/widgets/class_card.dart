@@ -6,20 +6,24 @@ class ClassCard extends StatelessWidget {
     super.key,
     required this.className,
     required this.headCount,
+    // required this.onEdit, 
+    // required this.onDelete
   });
 
   final String className;
-  final String headCount;
+  final int headCount;
+  // final VoidCallback onEdit;
+  // final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context, 
+          context,
           MaterialPageRoute(
-            builder: (context) => ClassPage(className: className)
-          )
+            builder: (context) => ClassPage(className: className),
+          ),
         );
       },
       child: Container(
@@ -29,9 +33,9 @@ class ClassCard extends StatelessWidget {
               color: const Color.fromARGB(47, 0, 0, 0),
               spreadRadius: 2,
               blurRadius: 10,
-              offset: Offset(0, 7)
-            )
-          ]
+              offset: Offset(0, 7),
+            ),
+          ],
         ),
         child: Column(
           children: [
@@ -39,48 +43,61 @@ class ClassCard extends StatelessWidget {
               height: 90,
               decoration: BoxDecoration(
                 color: Colors.amber,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
               ),
             ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10))
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          className,
-                          style: TextStyle(
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              className,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
                           ),
-                        ),
-                        Expanded(child: Container()),
-                        Image.asset('assets/images/hamburger_icon.png', height: 15,)
-                      ],
-                    ),
-                    Text(
-                      '${headCount}명',
-                      style: TextStyle(
-                        fontFamily: 'Pretendard',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 10,
-                        color: Color(0xff777777)
+
+
+                          Image.asset(
+                            'assets/images/hamburger_icon.png',
+                            height: 15,
+                          ),
+                        ],
                       ),
-                    )
-                  ],
+                      Text(
+                        '${headCount.toString()}명',
+                        style: TextStyle(
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 10,
+                          color: Color(0xff777777),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            )
-            )
+            ),
           ],
         ),
       ),
