@@ -41,6 +41,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 110), 
@@ -50,6 +51,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
+                style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400),
                 controller: _surveyTitleController,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
@@ -58,7 +60,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                     scale: 2.8,
                     ),
                     onPressed: (){
-                    
+                      
                     }
                   ),
                   hintText: "제목 없는 평가지",
@@ -110,6 +112,12 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                           );
                         },
                       );
+                      if (selectedDate != null) {
+                        setState(() {
+                          _surveyDateController.text =
+                              "${selectedDate.year}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.day.toString().padLeft(2, '0')}";
+                        });
+                      }
                     },
                   ),
                   hintText: "2026.01.01",

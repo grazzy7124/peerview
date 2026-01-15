@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:peerview/core/theme/font_styles.dart';
+import 'dart:async';
 
-class CreateSurveyCompletePage extends StatelessWidget {
+import 'package:peerview/views/home/home_page.dart';
+
+class CreateSurveyCompletePage extends StatefulWidget {
   const CreateSurveyCompletePage({super.key});
 
   @override
+  State<CreateSurveyCompletePage> createState() => _CreateSurveyCompletePageState();
+
+}
+
+class _CreateSurveyCompletePageState extends State<CreateSurveyCompletePage> {
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24),
         child: Column(

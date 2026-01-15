@@ -17,6 +17,7 @@ class ClassPage extends StatelessWidget {
       backgroundColor: Color(0xffF9FAFB),
       appBar: AppBar(
         backgroundColor: Color(0xffF9FAFB),
+        surfaceTintColor: Colors.transparent,
         bottom: PreferredSize(
           preferredSize: Size(double.infinity, 20), 
           child: Column(
