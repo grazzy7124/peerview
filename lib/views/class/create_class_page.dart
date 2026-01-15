@@ -45,6 +45,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -105,9 +106,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 16),
-
               Row(
                 children: [
                   Expanded(

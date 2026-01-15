@@ -65,7 +65,8 @@ class _ClassPageState extends State<ClassPage> {
     return Scaffold(
       backgroundColor: const Color(0xffF9FAFB),
       appBar: AppBar(
-        backgroundColor: const Color(0xffF9FAFB),
+        backgroundColor: Color(0xffF9FAFB),
+        surfaceTintColor: Colors.transparent,
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 20),
           child: Column(

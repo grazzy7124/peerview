@@ -12,6 +12,7 @@ class _FormsState extends State<Forms> {
   final TextEditingController _formTitleController = TextEditingController();
   
   int _questionType = 1;
+  int starCount = 5;
 
   bool _isRequired = true;
 
@@ -217,17 +218,16 @@ class _FormsState extends State<Forms> {
         SizedBox(height: 3,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/form_star.png', height: 32,),
-            SizedBox(width: 8,),
-            Image.asset('assets/images/form_star.png', height: 32,),
-            SizedBox(width: 8,),
-            Image.asset('assets/images/form_star.png', height: 32,),
-            SizedBox(width: 8,),
-            Image.asset('assets/images/form_star.png', height: 32,),
-            SizedBox(width: 8,),
-            Image.asset('assets/images/form_star.png', height: 32,),
-          ],
+          children: List.generate(
+            //starCount만큼 별 생성
+            starCount,
+            (index) => Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Image.asset('assets/images/form_star.png', height: 32,)
+              ),
+            ),
+          ),
         ),
         SizedBox(height: 15),
         Row(
@@ -235,14 +235,22 @@ class _FormsState extends State<Forms> {
           children: [
             InkWell(
               onTap: (){
-
+                setState(() {
+                  if(starCount > 1){
+                    starCount --;
+                  }
+                });
               },
               child: Image.asset('assets/images/form_star_minus_btn.png', height: 24,),
             ),
             SizedBox(width: 7),
             InkWell(
               onTap: (){
-
+                setState((){
+                  if(starCount < 10){
+                    starCount ++;
+                  }
+                });
               },
               child: Image.asset('assets/images/form_star_plus_btn.png', height: 24,)
             ),
@@ -253,22 +261,21 @@ class _FormsState extends State<Forms> {
   }
 
   Widget _textAnswer() {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "텍스트 입력",
-        hintStyle: TextStyle(fontSize: 14),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xffE5E7EB), 
-            width: 0.7,
+    return 
+    Padding(
+      padding: const EdgeInsets.fromLTRB(0, 15, 0, 2),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Expanded(
+                child: Text('텍스트 입력', style: TextStyle(color: Color(0xff6A7282), fontSize: 14,)),
+              ),
+            ],
           ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xff164BC6),
-            width: 0.7,
-          ),
-        ),
+          SizedBox(height: 12,),
+          Divider(color: Color(0xffE5E7EB), thickness: 0.7, height: 0,),
+        ],
       ),
     );
   }
@@ -300,6 +307,7 @@ class _FormsState extends State<Forms> {
                 SizedBox(height: 8.28,),
                 TextField(
                   controller: _formTitleController,
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                   decoration: InputDecoration(
                     hintText: "제목 없는 질문",
                     hintStyle: TextStyle(
@@ -444,7 +452,29 @@ class _FormsState extends State<Forms> {
                     ),
                     InkWell(
                       onTap: (){
-                        
+                        setState(() {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Color(0xff276CF7),
+                              padding: EdgeInsets.fromLTRB(15, 12, 0, 12),
+                              margin: EdgeInsets.fromLTRB(20, 0, 20, 5),
+                              behavior: SnackBarBehavior.floating,
+                              elevation: 0,
+                              duration: Duration(seconds: 3),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+
+                              content: Row(
+                                children: [
+                                  Image.asset('assets/images/form_snackbar_check_icon.png', width: 25,),
+                                  SizedBox(width: 11,),
+                                  Text('항목이 삭제되었습니다.', style: TextStyle(color: Color(0xffffffff), fontSize: 18, fontWeight: FontWeight.w500),),
+                                ],
+                              )
+                            )
+                          );
+                        });
                       },
                       child: Image.asset(
                         'assets/images/from_delete_icon.png',
