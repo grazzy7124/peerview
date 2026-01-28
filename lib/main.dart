@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Pretendard',
+        scaffoldBackgroundColor: Colors.white,
       ),
       title: 'Peerview',
       initialRoute: '/login',
