@@ -36,13 +36,72 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.transparent,
-      ),
+      appBar: 
+        PreferredSize(
+          preferredSize: Size.fromHeight(80), 
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.transparent,
+              actions: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 9),
+                    fixedSize: Size(58, 35),
+                    backgroundColor: _isFormComplete
+                        ? const Color(0xff164BC6)
+                        : const Color(0xffE5E7EB),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Center(child: Text('해당 설문을 등록하시겠습니까?', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17, ),)),
+                      actions: <Widget>[
+                        TextButton(
+                          style: ButtonStyle(
+                            // backgroundColor: Color(0xffb4b4b4),
+                            
+                          ),
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: Text('아니요', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xffffffff), fontSize: 16)),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                builder: (_) => const CreateSurveyCompletePage(),
+                              ),
+                            );
+                          },
+                          child: Text('네', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xffffffff), fontSize: 16)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  child: Text(
+                    '등록',
+                    style: TextStyle(
+                      color: _isFormComplete
+                          ? Colors.white
+                          : const Color(0xff9CA3AF),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 110), 
         child: Padding(
@@ -159,19 +218,24 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                 },
                 child: Center(
                   child: Container(
+                    height: 40,
+                    width: 40,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Color(0xff2A71FF), Color(0xff164BC6)],
-                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.25),
+                          spreadRadius: 0,
+                          blurRadius: 9.4,
+                          offset: Offset(0, 2),
+                        )
+                      ],
+                      color: Color(0xffFFFFFF),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(6),
+                      padding: const EdgeInsets.all(11),
                       child: Image.asset(
-                        'assets/images/form_add_btn_icon.png',
-                        height: 28,
+                        'assets/images/plus_icon.png',
                       ),
                     ),
                   ),
@@ -180,43 +244,6 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
             ]
           )
         )
-      ),
-       bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          child: SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _isFormComplete
-                    ? const Color(0xff164BC6)
-                    : const Color(0xffE5E7EB),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onPressed: _isFormComplete ? () {
-                Navigator.of(context, rootNavigator: true).push(
-                  MaterialPageRoute(
-                    builder: (_) => const CreateSurveyCompletePage(),
-                  ),
-                );
-              } : null,
-              child: Text(
-                '등록하기',
-                style: TextStyle(
-                  color: _isFormComplete
-                      ? Colors.white
-                      : const Color(0xff9CA3AF),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -19,7 +19,7 @@ class ClassChip extends StatelessWidget {
       child: Container(
         width: 320,
         height: 55,
-        margin: const EdgeInsets.only(bottom: 12),
+        // margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
           color: isSelected
             ? const Color(0xffE0EAFF)

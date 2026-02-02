@@ -304,7 +304,7 @@ class _FormsState extends State<Forms> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Q1.', style: TextStyle(color: Color(0xff164Bc6), fontWeight: FontWeight.w500),),
-                SizedBox(height: 8.28,),
+                SizedBox(height: 8),
                 TextField(
                   controller: _formTitleController,
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
@@ -387,7 +387,7 @@ class _FormsState extends State<Forms> {
                           value: 4,
                           child: Row(
                             children: [
-                              Text('T', style: TextStyle(color: Color(0xffe5e7eb), fontWeight: FontWeight.bold, fontSize: 19, height: 0),),
+                              Text('T', style: TextStyle(color: Color(0xffC0C0C0), fontWeight: FontWeight.bold, fontSize: 19, height: 0),),
                               SizedBox(width: 11,),
                               Text('주관식 질문', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
                             ]
@@ -406,9 +406,9 @@ class _FormsState extends State<Forms> {
                 SizedBox(height: 16,),
                 // 질문 유형에 따른 답변 형식 제공
                 _buildAnswerByType(),
-                SizedBox(height: 16,),
+                SizedBox(height: 28.88,),
                 Divider(color: Color(0xffe5e7eb), height: 0.65,),
-                SizedBox(height: 15.88,),
+                SizedBox(height: 9,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -422,8 +422,8 @@ class _FormsState extends State<Forms> {
                           },
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 150),
-                            width: 35, 
-                            height: 20,
+                            width: 37, 
+                            height: 21,
                             padding: EdgeInsets.symmetric(horizontal: 2.5),
                             decoration: BoxDecoration(
                               color: _isRequired
@@ -436,10 +436,12 @@ class _FormsState extends State<Forms> {
                               alignment:
                                   _isRequired ? Alignment.centerRight : Alignment.centerLeft,
                               child: Container(
-                                width: 14,
-                                height: 14,
+                                width: 16.2,
+                                height: 16.2,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: _isRequired
+                                    ? Color(0xfffffffff)
+                                    : Color(0xffF5F5F5),
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -455,31 +457,28 @@ class _FormsState extends State<Forms> {
                         setState(() {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor: Color(0xff276CF7),
-                              padding: EdgeInsets.fromLTRB(15, 12, 0, 12),
-                              margin: EdgeInsets.fromLTRB(20, 0, 20, 5),
+                              backgroundColor: Color(0xff072874),
+                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                              margin: EdgeInsets.fromLTRB(25, 0, 25, 29),
                               behavior: SnackBarBehavior.floating,
                               elevation: 0,
                               duration: Duration(seconds: 3),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-
                               content: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset('assets/images/form_snackbar_check_icon.png', width: 25,),
-                                  SizedBox(width: 11,),
-                                  Text('항목이 삭제되었습니다.', style: TextStyle(color: Color(0xffffffff), fontSize: 18, fontWeight: FontWeight.w500),),
+                                  SizedBox(width: 10.5,),
+                                  Text('삭제되었습니다.', style: TextStyle(color: Color(0xffffffff), fontSize: 17, fontWeight: FontWeight.w500),),
                                 ],
                               )
                             )
                           );
                         });
                       },
-                      child: Image.asset(
-                        'assets/images/from_delete_icon.png',
-                        height: 36,
-                      ),
+                      child: Image.asset('assets/images/from_delete_icon.png', height: 36),
                     ),
                   ],
                 ),
@@ -487,7 +486,7 @@ class _FormsState extends State<Forms> {
             ),
           ),
         ),
-        SizedBox(height: 20,)
+        SizedBox(height: 12,)
       ],
     );
   }
