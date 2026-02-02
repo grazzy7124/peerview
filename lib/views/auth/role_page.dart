@@ -12,6 +12,9 @@ class RolePage extends StatefulWidget {
 class _RolePageState extends State<RolePage> {
   bool isAdminSelected = false;
   bool isStudentSelected = false;
+  bool isRoleSelected() {
+    return isAdminSelected || isStudentSelected;
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,9 @@ class _RolePageState extends State<RolePage> {
                         width: 165,
                         height: 250,
                         decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 255, 255, 1),
+                          color: isAdminSelected
+                            ? Color(0xff2E5BC3)
+                            : Color.fromRGBO(255, 255, 255, 1),
                           borderRadius: BorderRadius.circular(13),
                           boxShadow: [
                             BoxShadow(
@@ -77,9 +82,6 @@ class _RolePageState extends State<RolePage> {
                               offset: Offset(0, -3.5),
                             ),
                           ],
-                          border: isAdminSelected
-                            ? Border.all(color: const Color(0xff154bc6), width: 2)
-                            : null,
                         ),
                         child: Column(
                           children: [
@@ -102,7 +104,6 @@ class _RolePageState extends State<RolePage> {
                                     offset: Offset(0, 4),
                                   ),
                                 ],
-                
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(8, 8, 7.93, 7.93),
@@ -110,10 +111,25 @@ class _RolePageState extends State<RolePage> {
                               )
                             ),
                             SizedBox(height: 17.4,),
-                            Text('관리자', style: TextStyle(color: Color(0xff164BC6), fontSize: 16, fontWeight: FontWeight.w800,)),
-                            Text('(교수 · TA)', style: TextStyle(color: Color(0xff164BC6), fontSize: 13, fontWeight: FontWeight.w600,)),
+                            Text('관리자', style: TextStyle(
+                              color: isAdminSelected
+                              ? Color(0xffffffff)
+                              : Color(0xff164BC6),
+                              fontSize: 16, fontWeight: FontWeight.w800,)
+                            ),
+                            Text('(교수 · TA)', style: TextStyle(
+                              color: isAdminSelected
+                                ? Color(0xffffffff)
+                                : Color(0xff164BC6),
+                              fontSize: 13, fontWeight: FontWeight.w600,)
+                              ),
                             SizedBox(height: 25.7,),
-                            Text('수업, 동료 평가 생성 및 관리', style: TextStyle(color: Color(0xff164BC6), fontSize: 12, fontWeight: FontWeight.w400,)),
+                            Text('수업, 동료 평가 생성 및 관리', style: TextStyle(
+                              color: isAdminSelected
+                                ? Color(0xffffffff)
+                                : Color(0xff164BC6),
+                              fontSize: 12, fontWeight: FontWeight.w400,)
+                            ),
                           ],
                         ),
                       ),
@@ -130,7 +146,9 @@ class _RolePageState extends State<RolePage> {
                         width: 165,
                         height: 250,
                         decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 255, 255, 1),
+                          color: isStudentSelected
+                            ? Color(0xff2E5BC3)
+                            : Color.fromRGBO(255, 255, 255, 1),
                           borderRadius: BorderRadius.circular(13),
                           boxShadow: [
                             BoxShadow(
@@ -146,9 +164,6 @@ class _RolePageState extends State<RolePage> {
                               offset: Offset(0, -3.5),
                             ),
                           ],
-                          border: isStudentSelected
-                            ? Border.all(color: const Color(0xff154bc6), width: 2)
-                            : null,
                         ),
                         child: Column(
                           children: [
@@ -178,10 +193,25 @@ class _RolePageState extends State<RolePage> {
                               )
                             ),
                             SizedBox(height: 17.4,),
-                            Text('참여자', style: TextStyle(color: Color(0xff164BC6), fontSize: 16, fontWeight: FontWeight.w800,)),
-                            Text('(학생)', style: TextStyle(color: Color(0xff164BC6), fontSize: 13, fontWeight: FontWeight.w600,)),
+                            Text('참여자', style: TextStyle(
+                              color: isStudentSelected
+                              ? Color(0xffffffff)
+                              : Color(0xff164BC6), 
+                              fontSize: 16, fontWeight: FontWeight.w800,)
+                            ),
+                            Text('(학생)', style: TextStyle(
+                              color: isStudentSelected
+                                ? Color(0xffffffff)
+                                : Color(0xff164BC6), 
+                              fontSize: 13, fontWeight: FontWeight.w600,)
+                            ),
                             SizedBox(height: 25.7,),
-                            Text('참여한 수업의 \n동료평가 설문에 참여', textAlign: TextAlign.center, style: TextStyle(color: Color(0xff164BC6), fontSize: 12, fontWeight: FontWeight.w400,)),
+                            Text('참여한 수업의 \n동료평가 설문에 참여', textAlign: TextAlign.center, style: TextStyle(
+                              color: isStudentSelected
+                                ? Color(0xffffffff)
+                                : Color(0xff164BC6), 
+                              fontSize: 12, fontWeight: FontWeight.w400,)
+                            ),
                           ],
                         ),
                       ),
@@ -194,21 +224,30 @@ class _RolePageState extends State<RolePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 29),
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(255, 255, 255, 0.2),
+                    backgroundColor: isRoleSelected()
+                      ? Color(0xff164BC6)
+                      :Color.fromRGBO(255, 255, 255, 0.2),
                     padding: const EdgeInsets.fromLTRB(0, 14.4, 0, 14.4),
                   ),
-                  onPressed: (isAdminSelected || isStudentSelected)
+                  onPressed: (isRoleSelected())
                     ? () {
+                      if(isAdminSelected) {
                         Navigator.pushNamed(context, '/');
+                      } else if(isStudentSelected){
+                        Navigator.pushNamed(context, '/home');
                       }
+                    }
                     : null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // SizedBox(width: 103),
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(color: Color(0xff154bc6), fontSize: 15, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            color: isRoleSelected()
+                              ? const Color(0xffffffff)
+                              : const Color(0xff154bc6),
+                            fontSize: 15, fontWeight: FontWeight.w500),
                           children: [
                             TextSpan(text: 'peerview ', style: TextStyle(fontWeight: FontWeight.w800, fontFamily: 'RiaSans'),),
                             const TextSpan(text: '시작하기'),

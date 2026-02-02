@@ -13,6 +13,7 @@ class SurveyPickClassPage extends StatefulWidget {
 class _SurveyPickClassPageState extends State<SurveyPickClassPage> {
   int? selectedIndex;
 
+  final ScrollController _scrollController = ScrollController();
   final List<String> classes = [
     '공학설계입문',
     '웹프로그래밍',
@@ -22,6 +23,12 @@ class _SurveyPickClassPageState extends State<SurveyPickClassPage> {
     '자료구조',
     '컴퓨터 및 전자학개론',
   ];
+
+  @override
+    void dispose() {
+      _scrollController.dispose();
+      super.dispose();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +42,51 @@ class _SurveyPickClassPageState extends State<SurveyPickClassPage> {
           ),
           SizedBox(height: 75),
           SizedBox(
-            width: double.infinity,
-            height: 265,
-            child: SingleChildScrollView(
-              child: Column(
-                children: List.generate(classes.length, (index) {
-                  return ClassChip(
-                    title: classes[index],
-                    isSelected: selectedIndex == index,
-                    onTap: () {
-                      setState(() {
-                        selectedIndex =
-                          selectedIndex == index ? null : index;
-                      });
-                    },
-                  );
-                }),
-              ),
+            width: 344,
+            height: 323,
+            child: Stack(
+              children: [
+                ListView.builder(
+                  controller: _scrollController,
+                  padding: EdgeInsets.zero,
+                  itemCount: classes.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: ClassChip(
+                        title: classes[index],
+                        isSelected: selectedIndex == index,
+                        onTap: () {
+                          setState(() {
+                            selectedIndex =
+                                selectedIndex == index ? null : index;
+                          });
+                        },
+                      ),
+                    );
+                  },
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: IgnorePointer(
+                    child: Container(
+                      height: 46,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromRGBO(255, 255, 255, 0.0),
+                            Color.fromRGBO(255, 255, 255, 0.9),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
