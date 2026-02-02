@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:peerview/viewmodels/session_view_model.dart';
 import 'package:peerview/views/mypage/mypage_edit.dart';
+import 'package:provider/provider.dart';
 
 class Mypage extends StatefulWidget {
   const Mypage({super.key});
@@ -72,8 +74,16 @@ class _MypageState extends State<Mypage> {
                 ), 
                 Divider(color: Color(0xffF3F4F6), thickness: 1.18,),
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
+                    await context.read<SessionViewModel>().signOut();
 
+                    if (!mounted) return;
+
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/gate',
+                      (route) => false,
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 16, 0, 16),

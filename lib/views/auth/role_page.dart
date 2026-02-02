@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:provider/provider.dart';
+import 'package:peerview/viewmodels/session_view_model.dart';
+
 
 
 class RolePage extends StatefulWidget {
@@ -198,8 +201,23 @@ class _RolePageState extends State<RolePage> {
                     padding: const EdgeInsets.fromLTRB(0, 14.4, 0, 14.4),
                   ),
                   onPressed: (isAdminSelected || isStudentSelected)
-                    ? () {
-                        Navigator.pushNamed(context, '/');
+                    ? () async {
+                        try {
+                          final role = isAdminSelected ? 'admin' : 'student';
+
+                          await context.read<SessionViewModel>().chooseRoleAndCreateUser(role);
+
+                          if (!mounted) return;
+
+                          // ✅ Gate로 보내면 admin/student에 따라 자동 홈 분기됨
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/gate',
+                            (route) => false,
+                          );
+                        } catch (e) {
+                          debugPrint('Role save error: $e');
+                        }
                       }
                     : null,
                   child: Row(
