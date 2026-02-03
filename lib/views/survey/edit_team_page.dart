@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:peerview/core/widgets/team_card.dart';
 
-class EditTeamPage extends StatelessWidget {
+class EditTeamPage extends StatefulWidget {
   const EditTeamPage({super.key});
+
+  @override
+  State<EditTeamPage> createState() => _EditTeamPageState();
+}
+
+class _EditTeamPageState extends State<EditTeamPage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +32,8 @@ class EditTeamPage extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
 
-      body: Center(
+      body: Padding(
+        padding: EdgeInsetsGeometry.only(left: 21, right: 21),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -25,18 +48,23 @@ class EditTeamPage extends StatelessWidget {
             SizedBox(height: 60,),
             SizedBox(
               height: 250, 
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+              child: Scrollbar(
+                controller: _scrollController,
+                radius: Radius.circular(10),
+                thickness: 8,
+                interactive: false,
+                thumbVisibility: true,
+                trackVisibility: true,
+
+                child: SingleChildScrollView(
+                  controller: _scrollController,
                   child: Column(
                     children: [
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
+                      TeamCard(initialText: 'Team1',),
+                      TeamCard(initialText: 'Team2',),
+                      TeamCard(initialText: 'Team3',),
+                      TeamCard(initialText: 'Team4',),
+                      TeamCard(initialText: 'Team5',),
                     ],
                   ),
                 ),
@@ -72,26 +100,3 @@ class EditTeamPage extends StatelessWidget {
   }
 }
 
-class TeamCard extends StatelessWidget {
-  const TeamCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Container(
-        width: 322, height: 55,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(blurRadius: 8, spreadRadius: 0, offset: Offset(0, 2), color: const Color.fromARGB(30, 0, 0, 0))
-          ]
-        ),
-        child: Center(child: Text('data')),
-      ),
-    );
-  }
-}

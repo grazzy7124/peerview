@@ -44,7 +44,7 @@ class _ClassPageState extends State<ClassPage> {
     );
   }
 
-  // ✅ 삭제/등장 애니메이션 공통 위젯
+  //  삭제/등장 애니메이션 공통 위젯
   Widget _buildAnimatedItem(Map<String, dynamic> item, Animation<double> animation) {
     return SizeTransition(
       sizeFactor: CurvedAnimation(parent: animation, curve: Curves.easeInOut),

@@ -7,9 +7,9 @@ class FontStyles {
 
   // 홈 화면 로고
   static const TextStyle logo = TextStyle(
-    fontFamily: 'Pretendard',
+    fontFamily: 'RiaSans',
     fontWeight: FontWeight.w800,
-    fontSize: 20,
+    fontSize: 22,
     color: Color(0xff164BC6)
   );
 
