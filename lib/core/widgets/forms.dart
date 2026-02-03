@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Forms extends StatefulWidget {
-  const Forms({super.key});
+  final int index;
+
+  const Forms({super.key, required this.index});
 
   @override
   State<Forms> createState() => _FormsState();
@@ -13,11 +15,7 @@ class _FormsState extends State<Forms> {
   
   int _questionType = 1;
   int starCount = 5;
-
   bool _isRequired = true;
-
-  bool get _isFormComplete =>
-      _formTitleController.text.isNotEmpty;
 
   @override
   void initState() {
@@ -53,10 +51,11 @@ class _FormsState extends State<Forms> {
     }
   }
   
-  List<TextEditingController> _singleChoiceControllers = [
+  final List<TextEditingController> _singleChoiceControllers = [
     TextEditingController(),
   ];
 
+  // 객관실 질문 (단일 선택)
   Widget _singleChoiceAnswer() {
     return Column(
       children: [
@@ -74,7 +73,7 @@ class _FormsState extends State<Forms> {
                         icon: const Icon(
                           Icons.close,
                           size: 18,
-                          color: Color(0xff9CA3AF),
+                          color: Color(0xff222222),
                         ),
                         onPressed: () {
                           setState(() {
@@ -84,10 +83,10 @@ class _FormsState extends State<Forms> {
                         },
                       ),
                       hintText: "옵션",
-                      hintStyle: TextStyle(fontSize: 14),
+                      hintStyle: TextStyle(fontSize: 14, color: Color(0xff222222)),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xffE5E7EB), 
+                          color: Color(0xffc0c0c0), 
                           width: 0.7,
                         ),
                       ),
@@ -136,6 +135,7 @@ class _FormsState extends State<Forms> {
     );
   }
 
+  // 체크박스 질문 (다중 선택)
   Widget _multipleChoiceAnswer() {
     return Column(
       children: [
@@ -144,7 +144,7 @@ class _FormsState extends State<Forms> {
             padding: EdgeInsetsGeometry.symmetric(vertical: 3),
             child: Row(
               children: [
-                Image.asset('assets/images/form_checkbox_icon.png', height: 18,),
+                Image.asset('assets/images/form_checkbox_icon.png', height: 18, color: Color(0xffC0C0C0),),
                 SizedBox(width: 12,),
                 Expanded(
                   child: TextField(
@@ -166,7 +166,7 @@ class _FormsState extends State<Forms> {
                       hintStyle: TextStyle(fontSize: 14),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xffE5E7EB), 
+                          color: Color(0xffc0c0c0), 
                           width: 0.7,
                         ),
                       ),
@@ -193,16 +193,10 @@ class _FormsState extends State<Forms> {
             },
             child: Row(
               children: [
-                Image.asset('assets/images/form_checkbox_icon.png', height: 18,),
+                Image.asset('assets/images/form_checkbox_icon.png', height: 18, color: Color(0xffC0C0C0),),
                 const SizedBox(width: 12),
                 const Expanded(
-                  child: Text(
-                    '옵션 추가',
-                    style: TextStyle(
-                      color: Color(0xff6A7282),
-                      fontSize: 14,
-                    ),
-                  ),
+                  child: Text('옵션 추가', style: TextStyle(color: Color(0xff6A7282), fontSize: 14,),),
                 ),
               ],
             ),
@@ -212,6 +206,7 @@ class _FormsState extends State<Forms> {
     );
   }
 
+  // 별점 질문  
   Widget _ratingAnswer() {
     return Column(
       children: [
@@ -224,7 +219,7 @@ class _FormsState extends State<Forms> {
             (index) => Flexible(
               child: Padding(
                 padding: const EdgeInsets.only(right: 4),
-                child: Image.asset('assets/images/form_star.png', height: 32,)
+                child: Image.asset('assets/images/form_star.png', height: 32, color: Color(0xffC0C0C0),)
               ),
             ),
           ),
@@ -260,6 +255,7 @@ class _FormsState extends State<Forms> {
     );
   }
 
+  // 주관식 질문
   Widget _textAnswer() {
     return 
     Padding(
@@ -274,12 +270,14 @@ class _FormsState extends State<Forms> {
             ],
           ),
           SizedBox(height: 12,),
-          Divider(color: Color(0xffE5E7EB), thickness: 0.7, height: 0,),
+          Divider(color: Color(0xffc0c0c0), thickness: 0.7, height: 0,),
         ],
       ),
     );
   }
 
+  // 블록 메인
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -288,7 +286,7 @@ class _FormsState extends State<Forms> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Color(0xffE5E7EB), width: 2),
+            border: Border.all(color: Color(0xffC0C0C0), width: 1),
             boxShadow: [
               BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.12),
@@ -299,12 +297,26 @@ class _FormsState extends State<Forms> {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 22.5),
+            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ReorderableDragStartListener(
+                  index: widget.index,
+                  child: Center(
+                    child: Container(
+                      // color: Color.fromARGB(54, 255, 190, 190), 
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
+                        // padding: const EdgeInsets.all(0),
+                        child: Image.asset('assets/images/survey_block.png', width: 32.55, height: 7.92,),
+                      ),
+                    ),
+                  ),
+                ),
                 Text('Q1.', style: TextStyle(color: Color(0xff164Bc6), fontWeight: FontWeight.w500),),
-                SizedBox(height: 8),
+                SizedBox(height: 5),
                 TextField(
                   controller: _formTitleController,
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
@@ -317,7 +329,7 @@ class _FormsState extends State<Forms> {
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color(0xffE5E7EB), 
+                        color: Color(0xffc0c0c0), 
                         width: 0.65,
                       ),
                     ),
@@ -335,7 +347,7 @@ class _FormsState extends State<Forms> {
                   height: 48.91,
                   decoration: BoxDecoration(
                     color: Color(0xffffffff),
-                    border: Border.all(color: Color(0xffe5e7eb), width: 1.96),
+                    border: Border.all(color: Color(0xffc0c0c0), width: 1.5),
                     borderRadius: BorderRadius.circular(11.7)
                   ),
                   child: Padding(
@@ -387,7 +399,8 @@ class _FormsState extends State<Forms> {
                           value: 4,
                           child: Row(
                             children: [
-                              Text('T', style: TextStyle(color: Color(0xffC0C0C0), fontWeight: FontWeight.bold, fontSize: 19, height: 0),),
+                              SizedBox(width: 5),
+                              Image.asset('assets/images/text_icon.png', width: 10,),
                               SizedBox(width: 11,),
                               Text('주관식 질문', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
                             ]
@@ -407,7 +420,7 @@ class _FormsState extends State<Forms> {
                 // 질문 유형에 따른 답변 형식 제공
                 _buildAnswerByType(),
                 SizedBox(height: 28.88,),
-                Divider(color: Color(0xffe5e7eb), height: 0.65,),
+                Divider(color: Color(0xffc0c0c0), height: 0.65,),
                 SizedBox(height: 9,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -428,7 +441,7 @@ class _FormsState extends State<Forms> {
                             decoration: BoxDecoration(
                               color: _isRequired
                                   ? Color(0xff164BC6)
-                                  : Color(0xffE5E7EB),
+                                  : Color(0xffC0C0C0),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: AnimatedAlign(
@@ -440,7 +453,7 @@ class _FormsState extends State<Forms> {
                                 height: 16.2,
                                 decoration: BoxDecoration(
                                   color: _isRequired
-                                    ? Color(0xfffffffff)
+                                    ? Color(0xffffffff)
                                     : Color(0xffF5F5F5),
                                   shape: BoxShape.circle,
                                 ),
@@ -461,8 +474,8 @@ class _FormsState extends State<Forms> {
                               padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
                               margin: EdgeInsets.fromLTRB(25, 0, 25, 29),
                               behavior: SnackBarBehavior.floating,
-                              elevation: 0,
-                              duration: Duration(seconds: 3),
+                              elevation: 7.0,
+                              duration: Duration(seconds: 2),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
