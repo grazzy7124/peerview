@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
 class Forms extends StatefulWidget {
-  const Forms({super.key});
+  final int index;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const Forms({super.key, required this.index, required this.isSelected, required this.onTap});
 
   @override
   State<Forms> createState() => _FormsState();
 }
 
 class _FormsState extends State<Forms> {
-  
   final TextEditingController _formTitleController = TextEditingController();
-  
+
   int _questionType = 1;
   int starCount = 5;
-
   bool _isRequired = true;
-
-  bool get _isFormComplete =>
-      _formTitleController.text.isNotEmpty;
+  bool _isquestionTypeSelected = false;
 
   @override
   void initState() {
@@ -53,10 +53,11 @@ class _FormsState extends State<Forms> {
     }
   }
   
-  List<TextEditingController> _singleChoiceControllers = [
+  final List<TextEditingController> _singleChoiceControllers = [
     TextEditingController(),
   ];
 
+  // 객관실 질문 (단일 선택)
   Widget _singleChoiceAnswer() {
     return Column(
       children: [
@@ -71,11 +72,7 @@ class _FormsState extends State<Forms> {
                   child: TextField(
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: const Icon(
-                          Icons.close,
-                          size: 18,
-                          color: Color(0xff9CA3AF),
-                        ),
+                        icon: const Icon(Icons.close, size: 18, color: Color(0xff222222),),
                         onPressed: () {
                           setState(() {
                             _singleChoiceControllers[index].dispose();
@@ -84,18 +81,12 @@ class _FormsState extends State<Forms> {
                         },
                       ),
                       hintText: "옵션",
-                      hintStyle: TextStyle(fontSize: 14),
+                      hintStyle: TextStyle(fontSize: 14, color: Color(0xff222222)),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xffE5E7EB), 
-                          width: 0.7,
-                        ),
+                        borderSide: BorderSide(color: Color(0xffc0c0c0), width: 0.7,),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xff164BC6),
-                          width: 0.7,
-                        ),
+                        borderSide: BorderSide(color: Color(0xff164BC6), width: 0.7,),
                       ),
                     ),
                   ),
@@ -114,18 +105,10 @@ class _FormsState extends State<Forms> {
             },
             child: Row(
               children: [
-                Image.asset(
-                  'assets/images/form_radio_icon.png',
-                  height: 20,
-                ),
+                Image.asset('assets/images/form_radio_icon.png', height: 20,),
                 const SizedBox(width: 12),
                 const Expanded(
-                  child: Text(
-                    '옵션 추가',
-                    style: TextStyle(
-                      color: Color(0xff6A7282),
-                      fontSize: 14,
-                    ),
+                  child: Text('옵션 추가', style: TextStyle(color: Color(0xff6A7282), fontSize: 14,),
                   ),
                 ),
               ],
@@ -136,6 +119,7 @@ class _FormsState extends State<Forms> {
     );
   }
 
+  // 체크박스 질문 (다중 선택)
   Widget _multipleChoiceAnswer() {
     return Column(
       children: [
@@ -144,17 +128,13 @@ class _FormsState extends State<Forms> {
             padding: EdgeInsetsGeometry.symmetric(vertical: 3),
             child: Row(
               children: [
-                Image.asset('assets/images/form_checkbox_icon.png', height: 18,),
+                Image.asset('assets/images/form_checkbox_icon.png', height: 18, color: Color(0xffC0C0C0),),
                 SizedBox(width: 12,),
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: const Icon(
-                          Icons.close,
-                          size: 18,
-                          color: Color(0xff9CA3AF),
-                        ),
+                        icon: const Icon(Icons.close, size: 18, color: Color(0xff222222),),
                         onPressed: () {
                           setState(() {
                             _singleChoiceControllers[index].dispose();
@@ -165,16 +145,10 @@ class _FormsState extends State<Forms> {
                       hintText: "옵션",
                       hintStyle: TextStyle(fontSize: 14),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xffE5E7EB), 
-                          width: 0.7,
-                        ),
+                        borderSide: BorderSide(color: Color(0xffc0c0c0), width: 0.7,),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xff164BC6),
-                          width: 0.7,
-                        ),
+                        borderSide: BorderSide(color: Color(0xff164BC6), width: 0.7,),
                       ),
                     ),
                   ),
@@ -193,16 +167,10 @@ class _FormsState extends State<Forms> {
             },
             child: Row(
               children: [
-                Image.asset('assets/images/form_checkbox_icon.png', height: 18,),
+                Image.asset('assets/images/form_checkbox_icon.png', height: 18, color: Color(0xffC0C0C0),),
                 const SizedBox(width: 12),
                 const Expanded(
-                  child: Text(
-                    '옵션 추가',
-                    style: TextStyle(
-                      color: Color(0xff6A7282),
-                      fontSize: 14,
-                    ),
-                  ),
+                  child: Text('옵션 추가', style: TextStyle(color: Color(0xff6A7282), fontSize: 14,),),
                 ),
               ],
             ),
@@ -212,6 +180,7 @@ class _FormsState extends State<Forms> {
     );
   }
 
+  // 별점 질문  
   Widget _ratingAnswer() {
     return Column(
       children: [
@@ -219,12 +188,13 @@ class _FormsState extends State<Forms> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
+
             //starCount만큼 별 생성
             starCount,
             (index) => Flexible(
               child: Padding(
                 padding: const EdgeInsets.only(right: 4),
-                child: Image.asset('assets/images/form_star.png', height: 32,)
+                child: Image.asset('assets/images/form_star.png', height: 32, color: Color(0xffC0C0C0),)
               ),
             ),
           ),
@@ -260,6 +230,7 @@ class _FormsState extends State<Forms> {
     );
   }
 
+  // 주관식 질문
   Widget _textAnswer() {
     return 
     Padding(
@@ -274,219 +245,242 @@ class _FormsState extends State<Forms> {
             ],
           ),
           SizedBox(height: 12,),
-          Divider(color: Color(0xffE5E7EB), thickness: 0.7, height: 0,),
+          Divider(color: Color(0xffc0c0c0), thickness: 0.7, height: 0,),
         ],
       ),
     );
   }
 
+  // 블록 메인
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 361,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Color(0xffE5E7EB), width: 2),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.12),
-                spreadRadius: 0,
-                blurRadius: 5,
-                offset: Offset(0, 2),
+        GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            width: 361,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: widget.isSelected
+                 ? Color(0xff164BC6)
+                 : Color(0xffC0C0C0), 
+                width: 1
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 22.5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Q1.', style: TextStyle(color: Color(0xff164Bc6), fontWeight: FontWeight.w500),),
-                SizedBox(height: 8),
-                TextField(
-                  controller: _formTitleController,
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                  decoration: InputDecoration(
-                    hintText: "제목 없는 질문",
-                    hintStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xffE5E7EB), 
-                        width: 0.65,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(255, 173, 174, 176),
-                        width: 0.65,
-                      ),
-                    ),
-                  ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.12),
+                  spreadRadius: 0,
+                  blurRadius: 5,
+                  offset: Offset(0, 2),
                 ),
-                SizedBox(height: 16),
-                Container(
-                  width: 309,
-                  height: 48.91,
-                  decoration: BoxDecoration(
-                    color: Color(0xffffffff),
-                    border: Border.all(color: Color(0xffe5e7eb), width: 1.96),
-                    borderRadius: BorderRadius.circular(11.7)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.49),
-                    child: DropdownButton<int>(
-                      value: _questionType,
-                      isExpanded: true,
-                      underline: const SizedBox(),
-                      icon: Image.asset(
-                        'assets/images/form_dropdown_icon.png',
-                        scale: 2.8,
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ReorderableDragStartListener(
+                    index: widget.index,
+                    child: Center(
+                      child: Container(
+                        // color: Color.fromARGB(54, 255, 190, 190), 
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
+                          child: Image.asset('assets/images/survey_block.png', width: 32.55, height: 7.92,),
+                        ),
                       ),
-                      dropdownColor: Colors.white,
-                      borderRadius: BorderRadius.circular(11.7),
-                      itemHeight: 48.91,
-                      menuWidth: 306,
-                      items: [
-                        DropdownMenuItem(
-                          value: 1,
-                          child: Row(
-                            children: [
-                              Image.asset('assets/images/radio_btn_icon.png', width: 17,),
-                              SizedBox(width: 11,),
-                              Text('객관식 질문 (단일 선택)', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a)),),
-                            ]
-                          )
-                        ),
-                        DropdownMenuItem(
-                          value: 2,
-                          child: Row(
-                            children: [
-                              Image.asset('assets/images/checkbox_icon.png', width: 17,),
-                              SizedBox(width: 11,),
-                              Text('체크박스 질문 (다중 선택)', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
-                            ]
-                          )
-                        ),
-                        DropdownMenuItem(
-                          value: 3,
-                          child: Row(
-                            children: [
-                              Image.asset('assets/images/star_icon.png', width: 17,),
-                              SizedBox(width: 11,),
-                              Text('별점 질문', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
-                            ]
-                          )
-                        ),
-                        DropdownMenuItem(
-                          value: 4,
-                          child: Row(
-                            children: [
-                              Text('T', style: TextStyle(color: Color(0xffC0C0C0), fontWeight: FontWeight.bold, fontSize: 19, height: 0),),
-                              SizedBox(width: 11,),
-                              Text('주관식 질문', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
-                            ]
-                          )
-                        ),
-                      ], 
-                      onChanged: (value) {
-                        if (value == null) return;
-                        setState(() {
-                          _questionType = value;
-                        });
-                      },
                     ),
                   ),
-                ),
-                SizedBox(height: 16,),
-                // 질문 유형에 따른 답변 형식 제공
-                _buildAnswerByType(),
-                SizedBox(height: 28.88,),
-                Divider(color: Color(0xffe5e7eb), height: 0.65,),
-                SizedBox(height: 9,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
+                  Text('Q1.', style: TextStyle(color: Color(0xff164Bc6), fontWeight: FontWeight.w500),),
+                  SizedBox(height: 5),
+                  TextField(
+                    controller: _formTitleController,
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    decoration: InputDecoration(
+                      hintText: "제목 없는 질문",
+                      hintStyle: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffc0c0c0), width: 0.65,),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(255, 173, 174, 176), width: 0.65,),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    width: 309,
+                    height: 48.91,
+                    decoration: BoxDecoration(
+                      color: Color(0xffffffff),
+                      border: Border.all(
+                        color: _isquestionTypeSelected
+                          ? Color(0xff164BC6)
+                          : Color(0xffc0c0c0), 
+                        width: 1.5
+                      ),
+                      borderRadius: BorderRadius.circular(11.7)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(11.49),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          focusColor: Color(0xffF1F1F1)
+                        ),
+                        child: DropdownButton<int>(
+                          value: _questionType,
+                          isExpanded: true,
+                          icon: Image.asset('assets/images/form_dropdown_icon.png', scale: 2.8,),
+                          dropdownColor: Colors.white,
+                          borderRadius: BorderRadius.circular(11.7),
+                          underline: SizedBox(),
+                          itemHeight: 48.91,
+                          menuWidth: 306,
+                          items: [
+                            DropdownMenuItem(
+                              value: 1,
+                              child: Row(
+                                children: [
+                                  Image.asset('assets/images/radio_btn_icon.png', width: 17,),
+                                  SizedBox(width: 11,),
+                                  Text('객관식 질문 (단일 선택)', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a)),),
+                                ]
+                              )
+                            ),
+                            DropdownMenuItem(
+                              value: 2,
+                              child: Row(
+                                children: [
+                                  Image.asset('assets/images/checkbox_icon.png', width: 17,),
+                                  SizedBox(width: 11,),
+                                  Text('체크박스 질문 (다중 선택)', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
+                                ]
+                              )
+                            ),
+                            DropdownMenuItem(
+                              value: 3,
+                              child: Row(
+                                children: [
+                                  Image.asset('assets/images/star_icon.png', width: 17,),
+                                  SizedBox(width: 11,),
+                                  Text('별점 질문', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
+                                ]
+                              )
+                            ),
+                            DropdownMenuItem(
+                              value: 4,
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 5),
+                                  Image.asset('assets/images/text_icon.png', width: 10,),
+                                  SizedBox(width: 11,),
+                                  Text('주관식 질문', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xff0a0a0a))),
+                                ]
+                              )
+                            ),
+                          ], 
+                          onChanged: (value) {
+                            if (value == null) return;
                             setState(() {
-                              _isRequired = !_isRequired;
+                              _questionType = value;
+                              _isquestionTypeSelected = true;
                             });
                           },
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 150),
-                            width: 37, 
-                            height: 21,
-                            padding: EdgeInsets.symmetric(horizontal: 2.5),
-                            decoration: BoxDecoration(
-                              color: _isRequired
-                                  ? Color(0xff164BC6)
-                                  : Color(0xffE5E7EB),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: AnimatedAlign(
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16,),
+                  
+                  // 질문 유형에 따른 답변 형식 제공
+                  _buildAnswerByType(),
+                  SizedBox(height: 28.88,),
+                  Divider(color: Color(0xffc0c0c0), height: 0.65,),
+                  SizedBox(height: 9,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isRequired = !_isRequired;
+                              });
+                            },
+                            child: AnimatedContainer(
                               duration: Duration(milliseconds: 150),
-                              alignment:
-                                  _isRequired ? Alignment.centerRight : Alignment.centerLeft,
-                              child: Container(
-                                width: 16.2,
-                                height: 16.2,
-                                decoration: BoxDecoration(
-                                  color: _isRequired
-                                    ? Color(0xfffffffff)
-                                    : Color(0xffF5F5F5),
-                                  shape: BoxShape.circle,
+                              width: 37, 
+                              height: 21,
+                              padding: EdgeInsets.symmetric(horizontal: 2.5),
+                              decoration: BoxDecoration(
+                                color: _isRequired
+                                    ? Color(0xff164BC6)
+                                    : Color(0xffC0C0C0),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: AnimatedAlign(
+                                duration: Duration(milliseconds: 150),
+                                alignment:
+                                    _isRequired ? Alignment.centerRight : Alignment.centerLeft,
+                                child: Container(
+                                  width: 16.2,
+                                  height: 16.2,
+                                  decoration: BoxDecoration(
+                                    color: _isRequired
+                                      ? Color(0xffffffff)
+                                      : Color(0xffF5F5F5),
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 8,),
-                        Text('필수', style: TextStyle(color: Color(0xff333333)),)
-                      ],
-                    ),
-                    InkWell(
-                      onTap: (){
-                        setState(() {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Color(0xff072874),
-                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
-                              margin: EdgeInsets.fromLTRB(25, 0, 25, 29),
-                              behavior: SnackBarBehavior.floating,
-                              elevation: 0,
-                              duration: Duration(seconds: 3),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              content: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/images/form_snackbar_check_icon.png', width: 25,),
-                                  SizedBox(width: 10.5,),
-                                  Text('삭제되었습니다.', style: TextStyle(color: Color(0xffffffff), fontSize: 17, fontWeight: FontWeight.w500),),
-                                ],
+                          SizedBox(width: 8,),
+                          Text('필수', style: TextStyle(color: Color(0xff333333)),)
+                        ],
+                      ),
+                      InkWell(
+                        onTap: (){
+                          setState(() {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Color(0xff072874),
+                                padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                                margin: EdgeInsets.fromLTRB(25, 0, 25, 29),
+                                behavior: SnackBarBehavior.floating,
+                                elevation: 7.0,
+                                duration: Duration(seconds: 2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                content: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('assets/images/form_snackbar_check_icon.png', width: 25,),
+                                    SizedBox(width: 10.5,),
+                                    Text('삭제되었습니다.', style: TextStyle(color: Color(0xffffffff), fontSize: 17, fontWeight: FontWeight.w500),),
+                                  ],
+                                )
                               )
-                            )
-                          );
-                        });
-                      },
-                      child: Image.asset('assets/images/from_delete_icon.png', height: 36),
-                    ),
-                  ],
-                ),
-              ],
+                            );
+                          });
+                        },
+                        child: Image.asset('assets/images/from_delete_icon.png', height: 36),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-        SizedBox(height: 12,)
+        SizedBox(height: 13,)
       ],
     );
   }
