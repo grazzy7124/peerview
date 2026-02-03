@@ -15,7 +15,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
   final TextEditingController _surveyDateController = TextEditingController();
   final List<int> _formIds = [0]; // 설문 블록 ID 리스트
   int _nextId = 1;
-
+  int? selectedFormIndex;
 
   bool get _isFormComplete =>
       _surveyTitleController.text.isNotEmpty &&
@@ -55,11 +55,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                 backgroundColor: Colors.white,
                 surfaceTintColor: Colors.transparent,
                 leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.black,
-                  size: 20,
-                ),
+                icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20,),
                 onPressed: () {
                   showCustomedDialog(
                     context,
@@ -110,9 +106,9 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
           ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 110), 
+          padding: EdgeInsets.only(bottom: 110), 
           child: Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24),
+            padding: EdgeInsets.only(left: 24, right: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -121,10 +117,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                   controller: _surveyTitleController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      icon:Image.asset(
-                      'assets/images/form_title_edit_icon.png', 
-                      scale: 2.8,
-                      ),
+                      icon:Image.asset('assets/images/form_title_edit_icon.png', scale: 2.8,),
                       onPressed: (){
                         
                       }
@@ -155,10 +148,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                   controller: _surveyDateController,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                      icon: Image.asset(
-                        'assets/images/form_calendar_icon.png',
-                        scale: 2.8,
-                      ),
+                      icon: Image.asset('assets/images/form_calendar_icon.png', scale: 2.8,),
                       onPressed: () async {
                         final selectedDate = await showDatePicker(
                           context: context,
@@ -207,8 +197,16 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                   ),
                 ),
                 SizedBox(height: 20),
+
                 // 기본 설문 블록 생성
                 ReorderableListView.builder(
+                  proxyDecorator: (child, index, animation){
+                    return Material(
+                      color: Colors.transparent,
+                      elevation: 0,
+                      child: child,
+                    );
+                  },
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: _formIds.length,
@@ -223,15 +221,23 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                     return Forms(
                       key: ValueKey(_formIds[index]),
                       index: index,
+                      isSelected: selectedFormIndex == index,
+                      onTap: (){
+                        setState(() {
+                          selectedFormIndex = index;
+                        });
+                      }
                     );
                   },
                 ),
                 SizedBox(height: 20,),
+
                 // 추가 설문 블록 생성
                 GestureDetector(
                   onTap: () {
                     setState(() {
                       _formIds.add(_nextId++);
+                      selectedFormIndex = _formIds.length - 1;
                     });
                   },
                   child: Center(
@@ -252,9 +258,7 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(11),
-                        child: Image.asset(
-                          'assets/images/plus_icon.png',
-                        ),
+                        child: Image.asset('assets/images/plus_icon.png',),
                       ),
                     ),
                   ),
