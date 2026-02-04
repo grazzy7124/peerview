@@ -43,9 +43,7 @@ class _MypageEditState extends State<MypageEdit> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
           centerTitle: false,
           titleSpacing: 0,
           title: Text('내 정보 수정', style: TextStyle(color: Color(0xff222222), fontWeight: FontWeight.w600, fontSize: 16),),

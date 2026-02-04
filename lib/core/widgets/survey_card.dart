@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peerview/core/widgets/alertDialog.dart';
 import 'package:peerview/views/class/class_list_page.dart';
 import 'package:peerview/views/survey/edit_team_page.dart';
+import 'package:peerview/views/survey/result_page.dart';
 
 class SurveyCard extends StatefulWidget {
   const SurveyCard({
@@ -28,6 +29,13 @@ class _SurveyCardState extends State<SurveyCard> {
     setState(() {
       _isExpanded = !_isExpanded;
     });
+  }
+
+  void _gotoResultPage() {
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => ResultPage())
+    );
   }
 
   @override
@@ -127,7 +135,7 @@ class _SurveyCardState extends State<SurveyCard> {
                   strokeColor: const Color(0xff164BC6),
                   labelColor: Colors.white,
                   label: _isExpanded ? '결과 확인' : '자세히 보기',
-                  onTap: _isExpanded? null : _toggleExpanded,
+                  onTap: _isExpanded? _gotoResultPage : _toggleExpanded,
                 ),
 
                 //  확장됐을 때만 아래 버튼 2개 추가

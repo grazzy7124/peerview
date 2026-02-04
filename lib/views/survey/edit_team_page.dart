@@ -29,11 +29,10 @@ class _EditTeamPageState extends State<EditTeamPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
       ),
 
       body: Padding(
-        padding: EdgeInsetsGeometry.only(left: 21, right: 21),
+        padding: EdgeInsetsGeometry.only(left: 15, right: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -47,7 +46,8 @@ class _EditTeamPageState extends State<EditTeamPage> {
             ),
             SizedBox(height: 60,),
             SizedBox(
-              height: 250, 
+              height: 300, 
+              // height: 375,
               child: Scrollbar(
                 controller: _scrollController,
                 radius: Radius.circular(10),
@@ -55,21 +55,54 @@ class _EditTeamPageState extends State<EditTeamPage> {
                 interactive: false,
                 thumbVisibility: true,
                 trackVisibility: true,
+            
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 11),
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                          children: [
+                            TeamCard(initialText: 'Team1',),
+                            TeamCard(initialText: 'Team2',),
+                            TeamCard(initialText: 'Team3',),
+                            TeamCard(initialText: 'Team4',),
+                            TeamCard(initialText: 'Team5',),
+                            TeamCard(initialText: 'Team6',),
+                            TeamCard(initialText: 'Team7',),
+                          ],
+                        ),
+                      ),
+                    ),
 
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Column(
-                    children: [
-                      TeamCard(initialText: 'Team1',),
-                      TeamCard(initialText: 'Team2',),
-                      TeamCard(initialText: 'Team3',),
-                      TeamCard(initialText: 'Team4',),
-                      TeamCard(initialText: 'Team5',),
-                    ],
-                  ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: IgnorePointer(
+                        child: Container(
+                          height: 46,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.fromRGBO(255, 255, 255, 0.0),
+                                Color.fromRGBO(255, 255, 255, 0.9),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
+
+            
+
             SizedBox(height: 28,),
             Material(
               color: Colors.transparent,

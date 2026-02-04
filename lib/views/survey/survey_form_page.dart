@@ -44,7 +44,6 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: 
           PreferredSize(
             preferredSize: Size.fromHeight(80), 
@@ -52,7 +51,6 @@ class _SurveyFormPageState extends State<SurveyFormPage> {
               padding: const EdgeInsets.only(right: 16),
               child: AppBar(
                 automaticallyImplyLeading: false,
-                backgroundColor: Colors.white,
                 surfaceTintColor: Colors.transparent,
                 leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20,),

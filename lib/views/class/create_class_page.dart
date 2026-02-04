@@ -44,9 +44,7 @@ class _CreateClassPageState extends State<CreateClassPage> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
           surfaceTintColor: Colors.transparent,
         ),
         body: SingleChildScrollView(
