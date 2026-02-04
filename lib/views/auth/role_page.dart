@@ -232,7 +232,6 @@ class _RolePageState extends State<RolePage> {
                       :Color.fromRGBO(255, 255, 255, 0.2),
                     padding: const EdgeInsets.fromLTRB(0, 14.4, 0, 14.4),
                   ),
-<<<<<<< HEAD
                   onPressed: (isAdminSelected || isStudentSelected)
                     ? () async {
                         try {
@@ -251,16 +250,7 @@ class _RolePageState extends State<RolePage> {
                         } catch (e) {
                           debugPrint('Role save error: $e');
                         }
-=======
-                  onPressed: (isRoleSelected())
-                    ? () {
-                      if(isAdminSelected) {
-                        Navigator.pushNamed(context, '/');
-                      } else if(isStudentSelected){
-                        Navigator.pushNamed(context, '/home');
->>>>>>> main
                       }
-                    }
                     : null,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
