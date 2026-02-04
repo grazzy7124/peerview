@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peerview/core/widgets/alertDialog.dart';
 import 'package:peerview/views/class/class_list_page.dart';
 import 'package:peerview/views/survey/edit_team_page.dart';
+import 'package:peerview/views/survey/result_page.dart';
 
 class SurveyCard extends StatefulWidget {
   const SurveyCard({
@@ -30,6 +31,13 @@ class _SurveyCardState extends State<SurveyCard> {
     });
   }
 
+  void _gotoResultPage() {
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => ResultPage())
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,7 +47,7 @@ class _SurveyCardState extends State<SurveyCard> {
         curve: Curves.easeInOut,
         alignment: Alignment.topCenter,
         child: Container(
-          width: 340,
+          // width: 340,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: const Color(0xffE5E7EB), width: 0.65),
@@ -52,15 +60,18 @@ class _SurveyCardState extends State<SurveyCard> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      widget.surveyName,
-                      style: const TextStyle(
-                        fontFamily: 'Pretendard',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+                    Expanded(
+                      child: Text(
+                        widget.surveyName,
+                        style: const TextStyle(
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Expanded(child: SizedBox()),
+                    // const Expanded(child: SizedBox()),
                     PopupMenuButton<String>(
                       onSelected: (value) {
                         if (value == 'delete') {
@@ -121,16 +132,16 @@ class _SurveyCardState extends State<SurveyCard> {
 
                 const SizedBox(height: 16),
 
-                // ✅ 메인 버튼 (탭하면 텍스트 변경 + 확장)
+                //  메인 버튼 (탭하면 텍스트 변경 + 확장)
                 Button(
                   fillColor: const Color(0xff164BC6),
                   strokeColor: const Color(0xff164BC6),
                   labelColor: Colors.white,
                   label: _isExpanded ? '결과 확인' : '자세히 보기',
-                  onTap: _toggleExpanded,
+                  onTap: _isExpanded? _gotoResultPage : _toggleExpanded,
                 ),
 
-                // ✅ 확장됐을 때만 아래 버튼 2개 추가
+                //  확장됐을 때만 아래 버튼 2개 추가
                 if (_isExpanded) ...[
                   const SizedBox(height: 12),
                   Column(
@@ -139,7 +150,7 @@ class _SurveyCardState extends State<SurveyCard> {
                         fillColor: Colors.white,
                         strokeColor: Color(0xffE5E7EB),
                         labelColor: Color(0xff111827),
-                        label: '설문 수정',
+                        label: '팀 수정',
                         onTap: () {
                           Navigator.push(
                             context, 
@@ -149,15 +160,25 @@ class _SurveyCardState extends State<SurveyCard> {
                       ),
                       
                       const SizedBox(height: 10),
-
+                      
                       Button(
-                        fillColor: Color(0xffF3F4F6),
+                        fillColor: Colors.white,
                         strokeColor: Color(0xffE5E7EB),
                         labelColor: Color(0xff111827),
-                        label: '공유하기',
+                        label: '설문 수정',
                         onTap: () {
                           
                         },
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Button(
+                        fillColor: Color(0xffE5E7EB),
+                        strokeColor: Color(0xffE5E7EB),
+                        labelColor: Color(0xff111827),
+                        label: '닫기',
+                        onTap: _toggleExpanded
                       ),
                     ],
                   ),

@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:peerview/core/widgets/team_card.dart';
 
-class EditTeamPage extends StatelessWidget {
+class EditTeamPage extends StatefulWidget {
   const EditTeamPage({super.key});
+
+  @override
+  State<EditTeamPage> createState() => _EditTeamPageState();
+}
+
+class _EditTeamPageState extends State<EditTeamPage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
       ),
 
-      body: Center(
+      body: Padding(
+        padding: EdgeInsetsGeometry.only(left: 15, right: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -24,24 +46,63 @@ class EditTeamPage extends StatelessWidget {
             ),
             SizedBox(height: 60,),
             SizedBox(
-              height: 250, 
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                      TeamCard(),
-                    ],
-                  ),
+              height: 300, 
+              // height: 375,
+              child: Scrollbar(
+                controller: _scrollController,
+                radius: Radius.circular(10),
+                thickness: 8,
+                interactive: false,
+                thumbVisibility: true,
+                trackVisibility: true,
+            
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 11),
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                          children: [
+                            TeamCard(initialText: 'Team1',),
+                            TeamCard(initialText: 'Team2',),
+                            TeamCard(initialText: 'Team3',),
+                            TeamCard(initialText: 'Team4',),
+                            TeamCard(initialText: 'Team5',),
+                            TeamCard(initialText: 'Team6',),
+                            TeamCard(initialText: 'Team7',),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: IgnorePointer(
+                        child: Container(
+                          height: 46,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.fromRGBO(255, 255, 255, 0.0),
+                                Color.fromRGBO(255, 255, 255, 0.9),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
+
+            
+
             SizedBox(height: 28,),
             Material(
               color: Colors.transparent,
@@ -72,26 +133,3 @@ class EditTeamPage extends StatelessWidget {
   }
 }
 
-class TeamCard extends StatelessWidget {
-  const TeamCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Container(
-        width: 322, height: 55,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(blurRadius: 8, spreadRadius: 0, offset: Offset(0, 2), color: const Color.fromARGB(30, 0, 0, 0))
-          ]
-        ),
-        child: Center(child: Text('data')),
-      ),
-    );
-  }
-}
