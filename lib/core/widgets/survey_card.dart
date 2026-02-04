@@ -60,15 +60,18 @@ class _SurveyCardState extends State<SurveyCard> {
               children: [
                 Row(
                   children: [
-                    Text(
-                      widget.surveyName,
-                      style: const TextStyle(
-                        fontFamily: 'Pretendard',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+                    Expanded(
+                      child: Text(
+                        widget.surveyName,
+                        style: const TextStyle(
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Expanded(child: SizedBox()),
+                    // const Expanded(child: SizedBox()),
                     PopupMenuButton<String>(
                       onSelected: (value) {
                         if (value == 'delete') {

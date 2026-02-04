@@ -66,7 +66,6 @@ class _ClassPageState extends State<ClassPage> {
       backgroundColor: const Color(0xffF9FAFB),
       appBar: AppBar(
         backgroundColor: Color(0xffF9FAFB),
-        surfaceTintColor: Colors.transparent,
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 20),
           child: Column(

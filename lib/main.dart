@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
+          surfaceTintColor: Colors.transparent,
         ),
         scrollbarTheme: ScrollbarThemeData(
           thumbColor: WidgetStatePropertyAll(Color(0xff2953B3)),
