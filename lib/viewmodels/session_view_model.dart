@@ -30,7 +30,7 @@ class SessionViewModel extends ChangeNotifier {
   void init() {
     _sub?.cancel();
 
-    // ✅ 0) 앱 시작 즉시 currentUser로 1차 분기 (로딩 무한 방지)
+    //  0) 앱 시작 즉시 currentUser로 1차 분기 (로딩 무한 방지)
     final user = authService.currentUser;
 
     // 기본값
