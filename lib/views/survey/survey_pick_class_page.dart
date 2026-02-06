@@ -36,57 +36,69 @@ class _SurveyPickClassPageState extends State<SurveyPickClassPage> {
       child: Column(
         children: [
           const SizedBox(height: 149),
-          Text(
-            '설문 생성할 수업을 선택해주세요',
-            style: FontStyles.pickClassTitle,
-          ),
+          Text('설문 생성할 수업을 선택해주세요', style: FontStyles.pickClassTitle, ),
           SizedBox(height: 75),
-          SizedBox(
-            width: 344,
-            height: 323,
-            child: Stack(
-              children: [
-                ListView.builder(
-                  controller: _scrollController,
-                  padding: EdgeInsets.zero,
-                  itemCount: classes.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: ClassChip(
-                        title: classes[index],
-                        isSelected: selectedIndex == index,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex =
-                                selectedIndex == index ? null : index;
-                          });
+          Scrollbar(
+            controller: _scrollController,
+            scrollbarOrientation: ScrollbarOrientation.right,
+            radius: Radius.circular(10),
+            thickness: 8,
+            interactive: false,
+            thumbVisibility: true,
+            trackVisibility: true,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SizedBox(
+                width: 344,
+                height: 323,
+                child: Stack(
+                  children: [
+                    Scrollbar(
+                      controller: _scrollController,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        padding: EdgeInsets.zero,
+                        itemCount: classes.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: ClassChip(
+                              title: classes[index],
+                              isSelected: selectedIndex == index,
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex =
+                                      selectedIndex == index ? null : index;
+                                });
+                              },
+                            ),
+                          );
                         },
                       ),
-                    );
-                  },
-                ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: IgnorePointer(
-                    child: Container(
-                      height: 46,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromRGBO(255, 255, 255, 0.0),
-                            Color.fromRGBO(255, 255, 255, 0.9),
-                          ],
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: IgnorePointer(
+                        child: Container(
+                          height: 46,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.fromRGBO(255, 255, 255, 0.0),
+                                Color.fromRGBO(255, 255, 255, 0.9),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           Expanded(
