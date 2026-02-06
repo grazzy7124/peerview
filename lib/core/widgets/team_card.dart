@@ -13,7 +13,6 @@ class TeamCard extends StatefulWidget {
 }
 
 class _TeamCardState extends State<TeamCard> {
-  
   late final TextEditingController _controller;
   late final FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
@@ -41,7 +40,7 @@ class _TeamCardState extends State<TeamCard> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10,),
       child: Container(
-        // height: 55,
+        height: 55,
         decoration: BoxDecoration(
           color: Color(0xffFAFAFA),
           borderRadius: BorderRadius.circular(30),
