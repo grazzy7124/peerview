@@ -77,13 +77,13 @@ class _MypageState extends State<Mypage> {
                   onTap: () async {
                     await context.read<SessionViewModel>().signOut();
 
-                    if (!mounted) return;
+                    // if (!mounted) return;
 
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/gate',
-                      (route) => false,
-                    );
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //   context,
+                    //   '/gate',
+                    //   (route) => false,
+                    // );
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 16, 0, 16),
