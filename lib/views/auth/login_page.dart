@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:provider/provider.dart';
+import 'package:peerview/viewmodels/session_view_model.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -126,11 +128,22 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 54,
                   width: 300,
-                  child: GestureDetector(
-                    child: Image.asset('assets/images/app_start_btn.png'),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/role');
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(255, 255, 255, 0.541),
+                      padding: const EdgeInsets.only(left: 18),
+                    ),
+                    onPressed: () async {
+                      try {
+                        await context.read<SessionViewModel>().signInWithGoogle();
+
+                        if (!mounted) return;
+                        Navigator.pushReplacementNamed(context, '/gate');
+                      } catch (e) {
+                        debugPrint(e.toString());
+                      }
                     },
+                    child: Image.asset('assets/images/app_start_btn.png'),
                   ),
                 )
               ],

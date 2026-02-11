@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:peerview/core/widgets/alertDialog.dart';
+import 'package:peerview/viewmodels/session_view_model.dart';
 import 'package:peerview/views/mypage/mypage_edit.dart';
+import 'package:provider/provider.dart';
 
 class Mypage extends StatefulWidget {
   const Mypage({super.key});
@@ -72,8 +75,15 @@ class _MypageState extends State<Mypage> {
                 ), 
                 Divider(color: Color(0xffF3F4F6), thickness: 1.18,),
                 InkWell(
-                  onTap: (){
-
+                  onTap: () {
+                    showCustomedDialog(
+                      context, 
+                      '정말 로그아웃하시겠습니까?', 
+                      () async {
+                        await context.read<SessionViewModel>().signOut();
+                      }
+                    );
+                    // await context.read<SessionViewModel>().signOut();
                   },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 16, 0, 16),

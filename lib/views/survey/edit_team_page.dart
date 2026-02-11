@@ -55,6 +55,7 @@ class _EditTeamPageState extends State<EditTeamPage> {
                 interactive: false,
                 thumbVisibility: true,
                 trackVisibility: true,
+                
             
                 child: Stack(
                   children: [

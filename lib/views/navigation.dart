@@ -5,14 +5,14 @@ import 'package:peerview/views/home/home_page.dart';
 import 'package:peerview/views/mypage/mypage.dart';
 import 'package:peerview/views/survey/survey_pick_class_page.dart';
 
-class Navigation extends StatefulWidget {
-  const Navigation({super.key});
+class AdminNavigation extends StatefulWidget {
+  const AdminNavigation({super.key});
 
   @override
-  State<Navigation> createState() => _NavigationState();
+  State<AdminNavigation> createState() => _AdminNavigationState();
 }
 
-class _NavigationState extends State<Navigation> {
+class _AdminNavigationState extends State<AdminNavigation> {
   int _selectedIndex = 0;
 
   final _navigatorKeys = List.generate(4, (_) => GlobalKey<NavigatorState>());
@@ -53,16 +53,7 @@ class _NavigationState extends State<Navigation> {
         break;
 
       case 1: // 수업 탭 
-        switch (settings.name) {
-          case '/':
-            page = const ClassListPage();
-            break;
-          // case '/class':
-          //   page = const ClassPage();
-          //   break;
-          default:
-            page = const ClassListPage();
-        }
+        page = const ClassListPage();
         break;
 
       case 2: // 설문
