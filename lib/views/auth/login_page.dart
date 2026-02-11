@@ -142,8 +142,33 @@ class _LoginPageState extends State<LoginPage> {
                       } catch (e) {
                         debugPrint(e.toString());
                       }
+                      
                     },
-                    child: Image.asset('assets/images/app_start_btn.png'),
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(100)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(7, 7, 6.42, 6.42),
+                            child: Image.asset('assets/images/google_login_icon.png', height: 20.58,),
+                          )
+                        ),
+                        SizedBox(width: 11),
+                        RichText(
+                          text: TextSpan(
+                            style: const TextStyle(color: Color(0xffffffff), fontSize: 15, fontWeight: FontWeight.w500),
+                            children: [
+                              const TextSpan(text: 'Google로 '),
+                              TextSpan(text: 'peerview ', style: TextStyle(color: Color(0xff154bc6), fontWeight: FontWeight.w800, fontFamily: 'RiaSans'),),
+                              const TextSpan(text: '시작하기'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
