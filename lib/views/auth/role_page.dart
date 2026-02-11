@@ -241,7 +241,7 @@ class _RolePageState extends State<RolePage> {
 
                           if (!mounted) return;
 
-                          // ✅ Gate로 보내면 admin/student에 따라 자동 홈 분기됨
+                          //  Gate로 보내면 admin/student에 따라 자동 홈 분기됨
                           Navigator.pushNamedAndRemoveUntil(
                             context,
                             '/gate',

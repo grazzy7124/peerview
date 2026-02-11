@@ -49,7 +49,7 @@ class SessionViewModel extends ChangeNotifier {
       _bootstrapWithUser(user);
     }
 
-    // ✅ 1) 이후부터는 authStateChanges로 상태 동기화
+    //  1) 이후부터는 authStateChanges로 상태 동기화
     _sub = authService.authStateChanges().listen((u) {
       if (u == null) {
         _firebaseUser = null;
@@ -71,10 +71,9 @@ class SessionViewModel extends ChangeNotifier {
 
     try {
       // 🔥 혹시 Firestore 쪽에서 멈추는 경우 대비: 타임아웃 걸어줌
-      final existing = await userService.fetchUser(user.uid).timeout(
-        const Duration(seconds: 8),
-        onTimeout: () => null,
-      );
+      final existing = await userService
+          .fetchUser(user.uid)
+          .timeout(const Duration(seconds: 8), onTimeout: () => null);
 
       if (existing == null) {
         _appUser = null;
@@ -94,41 +93,39 @@ class SessionViewModel extends ChangeNotifier {
     }
   }
 
-
   Future<void> signInWithGoogle() async {
     await authService.signInWithGoogle();
     // authStateChanges 리스너가 알아서 entry 갱신함
   }
 
   Future<void> chooseRoleAndCreateUser(String role) async {
-  final user = authService.currentUser;
-  if (user == null) throw Exception('No signed-in user');
+    final user = authService.currentUser;
+    if (user == null) throw Exception('No signed-in user');
 
-  _isLoading = true;
-  error = null;
-  notifyListeners();
-
-  try {
-    await userService.createUserIfAbsent(firebaseUser: user, role: role);
-
-    final fetched = await userService.fetchUser(user.uid);
-    if (fetched == null) {
-      throw Exception('User doc not created/readable yet');
-    }
-
-    _appUser = fetched;
-    _entry = (fetched.role == 'admin')
-        ? EntryRoute.adminHome
-        : EntryRoute.studentHome;
-  } catch (e) {
-    error = e.toString();
-    rethrow; // RolePage에서 catch해서 debugPrint 가능
-  } finally {
-    _isLoading = false;
+    _isLoading = true;
+    error = null;
     notifyListeners();
-  }
-}
 
+    try {
+      await userService.createUserIfAbsent(firebaseUser: user, role: role);
+
+      final fetched = await userService.fetchUser(user.uid);
+      if (fetched == null) {
+        throw Exception('User doc not created/readable yet');
+      }
+
+      _appUser = fetched;
+      _entry = (fetched.role == 'admin')
+          ? EntryRoute.adminHome
+          : EntryRoute.studentHome;
+    } catch (e) {
+      error = e.toString();
+      rethrow; // RolePage에서 catch해서 debugPrint 가능
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 
   @override
   void dispose() {
@@ -137,9 +134,8 @@ class SessionViewModel extends ChangeNotifier {
   }
 
   Future<void> signOut() async {
-  await authService.signOut();
-  // authStateChanges가 null 유저를 쏘고
-  // Gate가 EntryRoute.login으로 보냄
-}
-
+    await authService.signOut();
+    // authStateChanges가 null 유저를 쏘고
+    // Gate가 EntryRoute.login으로 보냄
+  }
 }

@@ -53,16 +53,7 @@ class _AdminNavigationState extends State<AdminNavigation> {
         break;
 
       case 1: // 수업 탭 
-        switch (settings.name) {
-          case '/':
-            page = const ClassListPage();
-            break;
-          // case '/class':
-          //   page = const ClassPage();
-          //   break;
-          default:
-            page = const ClassListPage();
-        }
+        page = const ClassListPage();
         break;
 
       case 2: // 설문
